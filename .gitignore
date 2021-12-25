@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Env Var ###
+*.env
+/src/main/resources/env_var.properties

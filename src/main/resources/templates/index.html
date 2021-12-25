@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{https://unpkg.com/leaflet@1.7.1/dist/leaflet.css}"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script th:src="@{https://unpkg.com/leaflet@1.7.1/dist/leaflet.js}"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
     <script src="my-js-file.js" defer></script>
     <title>Geocoding Application</title>
   </head>
@@ -14,34 +20,46 @@
     </header>
 
     <main class="main">
-      <section class="map-view">
-        <h2> Google Maps </h2>
-      </section>
-
       <section class="sidebar">
-        <h2> Tools </h2>
+        <h2 class="title"> Tools </h2>
 
         <article class="message">
           <p> Describe how to use the app </p>
         </article>
 
-        <form class="input">
-          <input> 
+        <form class="upload">
+          <label for="file_input">
+            <img class="icon" th:src="@{/upload.png}"/>
+          </label>
+          <input id="file_input" type="file" />
+          <p style="margin: 0px auto;font-size: 1.5vh;"> Upload .csv file </p> 
         </form>
         
         <article class="message">
           <p> Display check result of the input file </p>
         </article>
 
-        <form class="output">
-          <input> 
+        <form class="download">
+          <label for="file_output">
+            <img class="icon" th:src="@{/download.png}"/>
+          </label>
+          <a th:href="@{}" download=""> 
+            <input id="file_output" type="button"/>
+          </a>  
+          <p style="margin: 0px auto;font-size: 1.5vh;"> Download .csv file </p> 
         </form>
       </section>
 
+      <iframe class="iframe" style="border: 1px solid black"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-142.82226562500003%2C22.998851594142923%2C-70.79589843750001%2C53.82659674299413&amp;layer=mapnik">
+      <small><a href="https://www.openstreetmap.org/#map=5/40.128/-106.809">View Larger Map</a></small>
+      </iframe>
     </main>
 
     <footer class ="footer">
-      <a href="https://www.vecteezy.com/free-vector/engineering-background">Engineering Background Vectors by Vecteezy</a>
+      <div>Icons made by <a href="" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> <br>
+        Icons made by <a href="" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      </div>
     </footer>
   </body>
 
