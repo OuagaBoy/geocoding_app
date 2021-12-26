@@ -43,17 +43,16 @@
           <label for="file_output">
             <img class="icon" th:src="@{/download.png}"/>
           </label>
-          <a th:href="@{}" download=""> 
+          <a href="@{}" download=""> 
             <input id="file_output" type="button"/>
           </a>  
           <p style="margin: 0px auto;font-size: 1.5vh;"> Download .csv file </p> 
         </form>
       </section>
 
-      <iframe class="iframe" style="border: 1px solid black"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-142.82226562500003%2C22.998851594142923%2C-70.79589843750001%2C53.82659674299413&amp;layer=mapnik">
-      <small><a href="https://www.openstreetmap.org/#map=5/40.128/-106.809">View Larger Map</a></small>
-      </iframe>
+      <section class="map" id="map">
+        <script th:src="@{/create_map.js}"> </script>
+      </section>
     </main>
 
     <footer class ="footer">
