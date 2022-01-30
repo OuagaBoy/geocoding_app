@@ -12,13 +12,13 @@ import javax.persistence.SequenceGenerator;
 public class GeocodingDatabase {
     @Id
     @SequenceGenerator(
-        name = "geocodeAddresses_sequence",
-        sequenceName = "geocodeAddresses_sequence",
+        name = "geocode_addresses_sequence",
+        sequenceName = "geocode_addresses_sequence",
         allocationSize = 1
     )
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "geocodeAddresses_sequence"
+        generator = "geocode_addresses_sequence"
     )
     @Column(
         updatable = false

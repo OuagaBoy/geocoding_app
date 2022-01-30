@@ -27,24 +27,24 @@
           <p> Describe how to use the app </p>
         </article>
 
-        <form class="upload">
+        <form class="upload" action="/upload" enctype="multipart/form-data" method="post">
           <label for="file_input">
             <img class="icon" th:src="@{/upload.png}"/>
           </label>
-          <input id="file_input" type="file" />
+          <input id="file_input" type="file" name="file" onchange="form.submit()"/>
           <p style="margin: 0px auto;font-size: 1.5vh;"> Upload .csv file </p> 
         </form>
         
         <article class="message">
-          <p> Display check result of the input file </p>
+          <p th:text="${viewMessage}"> Display check result of the input file </p>
         </article>
 
-        <form class="download">
+        <form class="download" method="get">
           <label for="file_output">
             <img class="icon" th:src="@{/download.png}"/>
           </label>
-          <a href="@{}" download=""> 
-            <input id="file_output" type="button"/>
+          <a href="/Users/ouagaboy/Documents/Scratch/uploads/GeoAddresses.csv848eae2f-47fc-464a-b21e-5b9a6fe6ed3ageocoded_addresses.csv" download="geocoded_addresses.csv"> 
+            <input id="file_output" type="button" />
           </a>  
           <p style="margin: 0px auto;font-size: 1.5vh;"> Download .csv file </p> 
         </form>
@@ -52,12 +52,22 @@
 
       <section class="map" id="map">
         <script th:src="@{/create_map.js}"> </script>
+        <script th:inline="javascript">
+          const mapCoordinates = [[${mapCoordinates}]];
+          for (i in mapCoordinates){
+          const coordinates = mapCoordinates[i].split(",");
+          var x = coordinates[0];
+          var y = coordinates[1];
+          var marker = L.marker([x,y]).addTo(map);
+          }
+      </script>
+      
       </section>
     </main>
 
     <footer class ="footer">
-      <div>Icons made by <a href="" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> <br>
-        Icons made by <a href="" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      <div>Icons made by <a href="" title="Kiranshastry">Kiranshastry</a> from 
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
       </div>
     </footer>
   </body>

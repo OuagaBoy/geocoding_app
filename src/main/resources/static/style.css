@@ -118,7 +118,8 @@ body {
     background-color: whitesmoke;
 }
 .icon:hover{
-    background-color: green; 
+    background-color: green;
+    cursor: pointer; 
 }
 
 input {
