@@ -39,13 +39,11 @@
           <p th:text="${viewMessage}"> Display check result of the input file </p>
         </article>
 
-        <form class="download" method="get">
+        <form class="download" action="/upload" method="get">
           <label for="file_output">
             <img class="icon" th:src="@{/download.png}"/>
           </label>
-          <a href="/Users/ouagaboy/Documents/Scratch/uploads/GeoAddresses.csv848eae2f-47fc-464a-b21e-5b9a6fe6ed3ageocoded_addresses.csv" download="geocoded_addresses.csv"> 
-            <input id="file_output" type="button" />
-          </a>  
+          <input id="file_output" type="submit" />
           <p style="margin: 0px auto;font-size: 1.5vh;"> Download .csv file </p> 
         </form>
       </section>

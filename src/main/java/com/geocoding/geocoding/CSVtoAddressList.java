@@ -14,7 +14,6 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class CSVtoAddressList {
 
-    private final HttpFileService fileService = new HttpFileService();
     // Fields
 	private String errorMessage;
 

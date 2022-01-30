@@ -3,12 +3,17 @@ package com.geocoding.geocoding;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -26,6 +31,12 @@ public class HttpRequestsController {
         model.addAttribute("viewMessage", "Display check result of the input file!");
 		return "index";
 	}
+
+    @GetMapping("/wer")
+    public String error(Model model) {
+        model.addAttribute("viewMessage", "Please upload a .csv file first!");
+        return "index";
+    }
 
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, Model model) {
@@ -65,11 +76,14 @@ public class HttpRequestsController {
     }
 
     @GetMapping("/upload")
-    public String downloadFile(Model model) {
+    public ResponseEntity<Resource> downloadFile(Model model) {
         String resultFilePath = fileService.getuploadPath() + fileService.getfileName() + "geocoded_addresses.csv";
+        try {
         CSVtoAddressList.writeCSVtoResultFile(rawAddresses, resultFilePath);
-        model.addAttribute("resultFilePath", resultFilePath);
-        return "index";
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return fileService.download(resultFilePath);
     }
 
 }
