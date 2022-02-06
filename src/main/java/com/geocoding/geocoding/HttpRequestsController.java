@@ -1,9 +1,6 @@
 package com.geocoding.geocoding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
