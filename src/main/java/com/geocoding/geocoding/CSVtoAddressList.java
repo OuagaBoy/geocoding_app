@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 
 
 public class CSVtoAddressList {
