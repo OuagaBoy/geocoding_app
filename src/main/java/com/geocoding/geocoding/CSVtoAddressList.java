@@ -36,12 +36,8 @@ public class CSVtoAddressList {
             
         }
         
-        catch (IOException e) {
-            isValid = false;
-        }
-
-        catch (CsvValidationException e) {
-            errorMessage = "Please upload a valid CSV file!";
+        catch (Exception e) {
+            errorMessage = "Please upload a valid .csv file!";
         }
     }
 
