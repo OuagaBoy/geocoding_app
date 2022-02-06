@@ -24,7 +24,19 @@
         <h2 class="title"> Tools </h2>
 
         <article class="message">
-          <p> Describe how to use the app </p>
+          <p> 1. Upload a .csv file following the format below. <br>
+              "Street,City,State,zipCode" <br>
+              e.g. "2121 Euclid Ave,Cleveland,OH,44115" <br>
+              <br>
+              2. Once the geocoding process is done you can download
+              a .csv file that has the latitude and longitude of the addresses
+              that were provided. <br>
+              "Street,City,State,zipCode,lat,lng" <br>
+              e.g. "2121 Euclid Ave,Cleveland,OH,44115, 41.5027643,-81.67442299999999" <br>
+              <br>
+              Disclaimer: The app only works for US addresses!
+
+          </p>
         </article>
 
         <form class="upload" action="/upload" enctype="multipart/form-data" method="post">
@@ -35,15 +47,16 @@
           <p style="margin: 0px auto;font-size: 1.5vh;"> Upload .csv file </p> 
         </form>
         
-        <article class="message">
-          <p th:text="${viewMessage}"> Display check result of the input file </p>
+        <article class="result_message">
+          <p th:text="${viewMessage}"> Please upload a .csv file! </p>
         </article>
-
-        <form class="download" action="/upload" method="get">
+      
+        <form th:switch="${viewMessage}=='Please upload a .csv file!'" class="download" action="/upload" method="get">
           <label for="file_output">
             <img class="icon" th:src="@{/download.png}"/>
           </label>
-          <input id="file_output" type="submit" />
+          <input th:case="true" id="file_output" type="button" />
+          <input th:case="false" id="file_output" type="submit" />
           <p style="margin: 0px auto;font-size: 1.5vh;"> Download .csv file </p> 
         </form>
       </section>
@@ -58,8 +71,7 @@
           var y = coordinates[1];
           var marker = L.marker([x,y]).addTo(map);
           }
-      </script>
-      
+        </script>
       </section>
     </main>
 

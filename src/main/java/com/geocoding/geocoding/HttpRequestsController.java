@@ -3,6 +3,8 @@ package com.geocoding.geocoding;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +27,9 @@ public class HttpRequestsController {
 
     @GetMapping("/")
 	public String home(Model model) {
-        model.addAttribute("viewMessage", "Display check result of the input file!");
+        model.addAttribute("viewMessage", "Please upload a .csv file!");
 		return "index";
 	}
-
-    @GetMapping("/wer")
-    public String error(Model model) {
-        model.addAttribute("viewMessage", "Please upload a .csv file first!");
-        return "index";
-    }
 
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, Model model) {
@@ -46,8 +42,6 @@ public class HttpRequestsController {
             ArrayList<String> mapCoordinatesList = new ArrayList<String>();  
             String[] addressesArray = addressList.getAddresses();
             rawAddresses = addressList.getRawAddresses();
-            System.out.println(addressesArray[1]);
-            System.out.println(rawAddresses[1]);
             rawAddresses[0] = rawAddresses[0] + ",lat" + ",lng";
             for (Integer i=1; i<addressesArray.length; i++) {
                 // query database for existing geocoded addresses
@@ -63,7 +57,6 @@ public class HttpRequestsController {
                 rawAddresses[i] = rawAddresses[i] + "," + APICall.getLat() + "," + APICall.getLng();
             }
             String [] mapCoordinates = mapCoordinatesList.toArray(String[]::new);
-            System.out.println(Arrays.toString(rawAddresses));
             model.addAttribute("mapCoordinates", mapCoordinates);
             return "index";
         } catch (Exception e) {
@@ -77,7 +70,7 @@ public class HttpRequestsController {
         String resultFilePath = fileService.getuploadPath() + fileService.getfileName() + "geocoded_addresses.csv";
         try {
         CSVtoAddressList.writeCSVtoResultFile(rawAddresses, resultFilePath);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return fileService.download(resultFilePath);
