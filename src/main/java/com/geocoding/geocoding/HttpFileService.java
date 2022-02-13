@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class HttpFileService {
 
-    private String uploadPath = "/Users/ouagaboy/Documents/Scratch/uploads/";
+    private String uploadPath = EnvVariables.uploadPath;
     private String fileName;
 
     @PostConstruct
@@ -34,7 +34,7 @@ public class HttpFileService {
         }
     }
 
-    public void save(MultipartFile file) throws Exception {
+    public void save(MultipartFile file) {
         fileName = file.getOriginalFilename() + UUID.randomUUID();
         try {
             Path uploadDirectory = Paths.get(uploadPath);
@@ -63,6 +63,10 @@ public class HttpFileService {
                 .build();
         headers.setContentDisposition(disposition);
         return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+    }
+
+    public void delete(Path filePath) throws IOException {
+        Files.delete(filePath);
     }
 
     // Getters
